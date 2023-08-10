@@ -7,22 +7,27 @@
 </head>
 <body>
     <!-- <h1>Welcome</h1> -->
+    <input type="text" placeholder="Message" id="msg-input">
     <img src="" alt="Screenshot" class="screenshot">
 
 
     <style>
         body {
             margin: 0;
-            overflow: hidden;
+            /* overflow: hidden; */
             background-color: #000;
         }
         .screenshot {
             width: 100vw;
             height: 100vh;
+            scale: 0.5;
+            position: relative;
+            object-position: left top;
         }
     </style>
 
     <script>
+        const msgInput = document.querySelector('#msg-input')
         const screenshotImage = document.querySelector('.screenshot');
         window.onload(
             setInterval(() => {
@@ -34,8 +39,17 @@
                     .catch(error => {
                         console.error('Error updating image:', error);
                     });
-            }, 50)
+            }, 200)
         )
+
+        addEventListener('keyup', (e) => {
+            if (e.key == 'Enter') {
+                fetch('/text')
+                    .catch(error => {
+                        console.error('Error opening text file')
+                    })
+            }
+        })
     </script>
 </body>
 </html>
