@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <h1>Welcome</h1> -->
+    <img src="data:image/png;base64, <%= imgString %>" alt="Screenshot" class="screenshot">
+
+
+    <style>
+        body {
+            margin: 0;
+            /* overflow: hidden; */
+            background-color: #000;
+        }
+        .screenshot {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+
+    <script>
+        const screenshotImage = document.querySelector('.screenshot');
+        window.onload(
+            setInterval(() => {
+                fetch('/updateScreenshot')
+                    .then(response => response.json())
+                    .then(data => {
+                        screenshotImage.src = 'data:image/png;base64, ' + data.imageBuffer;
+                    })
+                    .catch(error => {
+                        console.error('Error updating image:', error);
+                    });
+            }, 50)
+        )
+    </script>
+</body>
+</html>
