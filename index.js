@@ -5,6 +5,7 @@ const app        = express();
 const cp         = require("child_process");
 const bodyParser = require('body-parser');
 const screenshot = require('screenshot-desktop');
+const { render } = require('ejs');
 const port       = 3000;
 let   hostname;
 
@@ -26,19 +27,8 @@ try {
 app.set('view engine', 'ejs');
 
 // Home Route
-app.get('/', async (req, res) => {
-  try {
-    // Capture the screen as an image
-    const imgBuffer = await screenshot();
-
-    const imgString = imgBuffer.toString('base64');
-    
-    // Render the EJS view with the captured image data
-    res.render('index', { imgString });
-  } catch (error) {
-    console.error('Error capturing or rendering screenshot:', error);
-    res.status(500).send('Internal Server Error');
-  }
+app.get('/', (req, res) => {
+  res.render('index')
 })
 
 // Routes
@@ -57,7 +47,7 @@ app.get('/text', (req, res) => {
 
 })
 
-app.get('/updateScreenshot', async (req, res) => {
+app.get('/screen', async (req, res) => {
   try {
     // Capture a new screen screenshot
     const newImageBuffer = await screenshot();
