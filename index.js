@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 })
 
 // Routes
-app.get('/text', (req, res) => {
+app.post('/text', (req, res) => {
   fs.writeFile('./files/text.txt', req.body.msg, (err) => {
     if (err) {
       console.error(err)

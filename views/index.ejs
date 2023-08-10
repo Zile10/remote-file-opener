@@ -7,14 +7,14 @@
 </head>
 <body>
     <!-- <h1>Welcome</h1> -->
-    <input type="text" placeholder="Message" id="msg-input">
+    <textarea type="text" placeholder="Message" id="msg-input"></textarea>
     <img src="" alt="Screenshot" class="screenshot">
 
 
     <style>
         body {
             margin: 0;
-            /* overflow: hidden; */
+            overflow: hidden;
             background-color: #000;
         }
         .screenshot {
@@ -43,11 +43,18 @@
         )
 
         addEventListener('keyup', (e) => {
-            if (e.key == 'Enter') {
-                fetch('/text')
-                    .catch(error => {
-                        console.error('Error opening text file')
-                    })
+            if (e.key == 'Control') {
+                fetch('/text', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ "msg": msgInput.value })
+                })
+                .catch(error => {
+                    console.error('Error opening text file: ', error)
+                })
+                msgInput.value = ''
             }
         })
     </script>
