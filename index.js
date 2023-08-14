@@ -17,7 +17,7 @@ app.use(bodyParser.json())
 try {
   const ipStdOut = cp.execSync('ipconfig | find "IPv4"').toString();
   hostname = ipStdOut.match(/(\d+\.\d+\.\d+\.\d+)/)[0];
-  // cp.execSync(`"http://${hostname}:${port}/" | clip`, {shell: "powershell"})
+  cp.execSync(`"http://${hostname}:${port}/" | clip`, {shell: "powershell"})
 } catch (error) {
   console.error(error);
   throw error;

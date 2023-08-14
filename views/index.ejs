@@ -20,7 +20,7 @@
         .screenshot {
             width: 100vw;
             height: 100vh;
-            scale: 0.5;
+            scale: 0.8;
             position: relative;
             object-position: left top;
         }
@@ -29,20 +29,8 @@
     <script>
         const msgInput = document.querySelector('#msg-input')
         const screenshotImage = document.querySelector('.screenshot');
-        window.onload(
-            setInterval(() => {
-                fetch('/screen')
-                    .then(response => response.json())
-                    .then(data => {
-                        screenshotImage.src = 'data:image/png;base64, ' + data.imageBuffer;
-                    })
-                    .catch(error => {
-                        console.error('Error updating image:', error);
-                    });
-            }, 200)
-        )
 
-        addEventListener('keyup', (e) => {
+        window.addEventListener('keyup', (e) => {
             if (e.key == 'Control') {
                 fetch('/text', {
                     method: 'POST',
@@ -57,6 +45,19 @@
                 msgInput.value = ''
             }
         })
+
+        window.onload(
+            setInterval(() => {
+                fetch('/screen')
+                    .then(response => response.json())
+                    .then(data => {
+                        screenshotImage.src = 'data:image/png;base64, ' + data.imageBuffer;
+                    })
+                    .catch(error => {
+                        console.error('Error updating image:', error);
+                    });
+            }, 200)
+        )
     </script>
 </body>
 </html>
