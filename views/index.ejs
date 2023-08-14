@@ -45,8 +45,9 @@
                 msgInput.value = ''
             }
         })
+        
 
-        window.onload(
+        // window.onload(
             setInterval(() => {
                 fetch('/screen')
                     .then(response => response.json())
@@ -57,7 +58,7 @@
                         console.error('Error updating image:', error);
                     });
             }, 200)
-        )
+        // )
     </script>
 </body>
 </html>
